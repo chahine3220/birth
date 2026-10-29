@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Hope • Black & Pink Luxury Experience</title>
+  
+  <!-- Fonts: Cinzel Decorative, Outfit, Great Vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="noir-pink-body">
+
+  <!-- Background Music Element (User gesture triggered) -->
+  <audio id="ambient-drone-player" loop preload="auto"></audio>
+
+  <!-- ================= CINEMATIC ENTER OVERLAY ================= -->
+  <div id="cinematic-intro" class="cinematic-intro">
+    <div class="intro-vignette"></div>
+    <div class="intro-content">
+      <div class="royal-monogram">H</div>
+      <p class="intro-subtitle">A BIRTHDAY EXPERIENCE CRAFTED FOR</p>
+      <h1 class="intro-name">Hope</h1>
+      <p class="intro-tagline">Black & Pink Luxury • High Fidelity Audio & Visuals</p>
+      <div class="enter-btn-wrap">
+        <button id="enter-experience-btn" class="intro-enter-btn blackpink-btn enter-btn sfx-trigger magnetic-btn btn-with-peeker" onclick="window.dismissCinematicIntro && window.dismissCinematicIntro()">
+          <div class="btn-kitty-peeker">
+            <img src="cats/cute-bouquet-cat.png" alt="Tulip Kitty" class="peeker-sticker">
+            <span class="peeker-bubble">Welcome Hope! 🌷💖</span>
+          </div>
+          <span>Enter ✦</span>
+        </button>
+        <div class="enter-ripple"></div>
+      </div>
+      <p class="audio-hint">🎧 Headphones recommended • Tap anywhere to start</p>
+    </div>
+  </div>
+
+  <!-- Stage Transition Overlay Curtain -->
+  <div id="transition-overlay" class="transition-overlay stage-transition-overlay">
+    <div class="transition-wipe-left"></div>
+    <div class="transition-wipe-right"></div>
+    <div class="transition-act-label" id="transition-act-label">ACT I • THE SECRET WISH</div>
+  </div>
+
+  <!-- Dynamic Cursor Particle Canvas -->
+  <canvas id="cursor-trail-canvas" class="cursor-trail-canvas"></canvas>
+
+  <!-- Ambient floating stardust & cherry blossom petals on void black -->
+  <div id="ambient-canvas-wrapper" aria-hidden="true">
+    <canvas id="ambient-canvas"></canvas>
+    <div class="mist-layer"></div>
+  </div>
+
+  <!-- Dynamic Random Cat Popups Floating Layer -->
+  <div id="random-cat-layer" class="random-cat-layer" aria-hidden="true"></div>
+
+  <!-- Floating Random Cat Summon Button -->
+  <button id="summon-cat-btn" class="summon-cat-pill sfx-trigger magnetic-btn" title="Click to summon a random funny cat!">
+    <span class="summon-cat-icon">🐱</span>
+    <span>Surprise Kitty ✦</span>
+  </button>
+
+  <!-- Interactive Cat Assistant Guide -->
+  <div id="cat-companion" class="cat-companion-roam" title="Your birthday kitty guide!">
+    <div class="cat-speech-bubble" id="companion-bubble">
+      "Happy Birthday Hope! Enjoy your song and the animal meme safari! 🐾✨"
+    </div>
+    <div class="cat-avatar-wrap" id="companion-avatar">
+      <img src="cats/cat-dance.gif" alt="Dancing birthday cat" id="companion-img">
+    </div>
+  </div>
+
+  <!-- Top Regal Black & Pink Header -->
+  <header class="royal-header" id="main-header">
+    <div class="crest-container">
+      <div class="crest-wings">⚜️</div>
+      <div class="crest-details">
+        <span class="crest-tag">DEDICATED TO</span>
+        <span class="crest-title">HOPE</span>
+      </div>
+      <div class="crest-wings">⚜️</div>
+    </div>
+    <div class="sfx-indicator-pill" id="sfx-pill" title="Interactive Sound FX Active">
+      <span class="sound-wave-bar"></span>
+      <span class="sound-wave-bar"></span>
+      <span class="sound-wave-bar"></span>
+      <span class="sound-wave-bar"></span>
+      <span class="sfx-label">SFX: Active 🔊</span>
+    </div>
+  </header>
+
+  <!-- Level Journey Stepper (5 Acts) -->
+  <nav class="stepper-nav" aria-label="Journey Progress">
+    <div class="stepper-track">
+      <div class="stepper-progress" id="stepper-progress"></div>
+    </div>
+    <div class="stepper-points">
+      <button class="step-point active current" data-step="1" id="step-btn-1">
+        <span class="step-icon">🎂</span>
+        <span class="step-label">The Wish</span>
+      </button>
+      <button class="step-point locked" data-step="2" id="step-btn-2">
+        <span class="step-icon">🎧</span>
+        <span class="step-label">Our Song</span>
+      </button>
+      <button class="step-point locked" data-step="3" id="step-btn-3">
+        <span class="step-icon">🍣</span>
+        <span class="step-label">Sushi</span>
+      </button>
+      <button class="step-point locked" data-step="4" id="step-btn-4">
+        <span class="step-icon">💌</span>
+        <span class="step-label">The Letter</span>
+      </button>
+      <button class="step-point locked" data-step="5" id="step-btn-5">
+        <span class="step-icon">👑</span>
+        <span class="step-label">Coronation</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Viewport for Guided Levels -->
+    
+
+  
+  <!-- ================= LEFT FLANK MEME SQUAD (HOPE'S CUTIES) ================= -->
+  <aside class="meme-side-dock dock-left" id="meme-dock-left" aria-label="Hope's Cuties Meme Dock">
+    <div class="dock-side-header">
+      <span class="dock-header-icon">🌸</span>
+      <span class="dock-header-title">Hope's Cuties</span>
+    </div>
+    <div class="dock-side-items">
+      <button class="side-dock-btn sfx-trigger" data-meme="sushi" title="Our Kitten Sushi!">
+        <img src="cats/sushi.jpg" alt="Sushi" class="side-dock-thumb">
+        <span class="side-dock-label">🍣 Sushi</span>
+        <div class="side-dock-tooltip">Sushi purrs softly for Hope! 🐾💤</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="bouquet" title="Tulip Delivery for Hope!">
+        <img src="cats/cute-bouquet-cat.png" alt="Tulip Kitty" class="side-dock-thumb">
+        <span class="side-dock-label">🌷 Tulips</span>
+        <div class="side-dock-tooltip">Fresh tulips for Queen Hope! 💐</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="wink" title="Cool Cap Wink for Hope!">
+        <img src="cats/cute-cap-cat.png" alt="Cool Cap Kitty" class="side-dock-thumb">
+        <span class="side-dock-label">😉 Wink</span>
+        <div class="side-dock-tooltip">Cool cap wink for Hope! 🧢✨</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="shy" title="Shy Confession for Hope!">
+        <img src="cats/cute-shy-cat.png" alt="Shy Kitty" class="side-dock-thumb">
+        <span class="side-dock-label">👉👈 Shy</span>
+        <div class="side-dock-tooltip">Hope looks so stunning today! 🌸</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="heart" title="Heart Paws for Hope!">
+        <img src="cats/cute-heart-cat.png" alt="Heart Kitty" class="side-dock-thumb">
+        <span class="side-dock-label">🫶 Love</span>
+        <div class="side-dock-tooltip">Infinite heart paws for Hope! 💕</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="smile" title="Sunshine Smile for Hope!">
+        <img src="cats/cute-smile-cat.png" alt="Smiling Kitty" class="side-dock-thumb">
+        <span class="side-dock-label">😸 Smile</span>
+        <div class="side-dock-tooltip">Pure sunshine smiles for Hope! ☀️</div>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= RIGHT FLANK MEME SQUAD (PARTY VIBES) ================= -->
+  <aside class="meme-side-dock dock-right" id="meme-dock-right" aria-label="Party Vibes Meme Dock">
+    <div class="dock-side-header">
+      <span class="dock-header-icon">🎉</span>
+      <span class="dock-header-title">Party Vibes</span>
+    </div>
+    <div class="dock-side-items">
+      <button class="side-dock-btn sfx-trigger" data-meme="pop" title="Pop Cat Tap Arcade!">
+        <img src="cats/popcat.gif" alt="Pop Cat" class="side-dock-thumb">
+        <span class="side-dock-label">🎈 Pop!</span>
+        <div class="side-dock-tooltip">POP! 100/10 score for Hope! 🏆</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="bongo" title="Bongo Drum Solo!">
+        <img src="cats/bongo-cat.gif" alt="Bongo Cat" class="side-dock-thumb">
+        <span class="side-dock-label">🥁 Bongo</span>
+        <div class="side-dock-tooltip">Bongo drum solo for Hope! 🎶</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="jam" title="Cat Jam Vibes!">
+        <img src="cats/cat-jam.gif" alt="Cat Jam" class="side-dock-thumb">
+        <span class="side-dock-label">🎧 Jam</span>
+        <div class="side-dock-tooltip">Still With You groove! 🎵</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="party" title="Party Hat Cat!">
+        <img src="cats/cat-party.jpg" alt="Party Cat" class="side-dock-thumb">
+        <span class="side-dock-label">🥳 Party</span>
+        <div class="side-dock-tooltip">Birthday celebration mode ON! 🥳</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="crown" title="Queen Kitty Crown!">
+        <img src="cats/cat-crown.jpg" alt="Crown Cat" class="side-dock-thumb">
+        <span class="side-dock-label">👑 Queen</span>
+        <div class="side-dock-tooltip">Crown for Birthday Queen Hope! 👑</div>
+      </button>
+      <button class="side-dock-btn sfx-trigger" data-meme="dance" title="Dance With Hope!">
+        <img src="cats/cat-dance.gif" alt="Dance Cat" class="side-dock-thumb">
+        <span class="side-dock-label">💃 Dance</span>
+        <div class="side-dock-tooltip">Dance party celebration! 💃✨</div>
+      </button>
+    </div>
+  </aside>
+
+  <main class="levels-container">
+
+    <!-- ================= LEVEL 1: THE CEREMONY & CAKE ================= -->
+    <section id="level-1" class="level-card-stage active-stage">
+      <div class="blackpink-chamber tilt-card" data-tilt>
+        <div class="card-ornament top-ornament">✦ ✧ ✦</div>
+        <span class="stage-tag">ACT I • THE SECRET WISH</span>
+        <h1 class="stage-title cinematic-title" data-reveal>Happy Birthday, <span class="neon-pink-text">Hope</span> 🌸</h1>
+        <p class="stage-sub cinematic-fade" data-reveal>A luxury black and pink celebration crafted specially for Hope.</p>
+
+        <!-- Interactive Wishmaker Constellation -->
+                <!-- Act I Balanced Side-Flank Layout (No vertical overflow) -->
+        <div class="act-widescreen-grid act1-grid">
+          <!-- Left Flank: Wishmaker Constellation -->
+          <div class="act-flank-card left-flank">
+            <div class="flank-inner">
+              <span class="wish-hint-tag">✦ MAKE 3 WISHES ✦</span>
+              <div class="wish-stars-column">
+                <button class="wish-star-btn sfx-trigger" data-wish="Boundless Joy & Peace" id="star-wish-1">
+                  <span class="star-icon">⭐</span>
+                  <span class="star-label">Joy & Peace</span>
+                </button>
+                <button class="wish-star-btn sfx-trigger" data-wish="Boundless Joy & Smiles" id="star-wish-2">
+                  <span class="star-icon">💖</span>
+                  <span class="star-label">Joy & Smiles</span>
+                </button>
+                <button class="wish-star-btn sfx-trigger" data-wish="Dreams Coming True" id="star-wish-3">
+                  <span class="star-icon">✨</span>
+                  <span class="star-label">All Dreams</span>
+                </button>
+              </div>
+              <div class="wish-announcement hidden" id="wish-announcement">
+                <span id="wish-text">"Your birthday wish for Hope has been sealed! ✨"</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center: 3D Floating Cake & Candles Centerpiece -->
+          <div class="act-center-stage">
+            <div class="cake-3d-model cake-float" id="cake-container" title="Click candles to blow them out!">
+              <!-- Candles Tier -->
+              <div class="candles-tier">
+                <div class="luxe-candle" data-lit="true" id="candle-1">
+                  <div class="flame-halo"></div>
+                  <div class="flame-wick"></div>
+                  <div class="candle-stem gold-swirl"></div>
+                </div>
+                <div class="luxe-candle" data-lit="true" id="candle-2">
+                  <div class="flame-halo"></div>
+                  <div class="flame-wick"></div>
+                  <div class="candle-stem rose-swirl"></div>
+                </div>
+                <div class="luxe-candle" data-lit="true" id="candle-3">
+                  <div class="flame-halo"></div>
+                  <div class="flame-wick"></div>
+                  <div class="candle-stem gold-swirl"></div>
+                </div>
+                <div class="luxe-candle" data-lit="true" id="candle-4">
+                  <div class="flame-halo"></div>
+                  <div class="flame-wick"></div>
+                  <div class="candle-stem rose-swirl"></div>
+                </div>
+                <div class="luxe-candle" data-lit="true" id="candle-5">
+                  <div class="flame-halo"></div>
+                  <div class="flame-wick"></div>
+                  <div class="candle-stem gold-swirl"></div>
+                </div>
+              </div>
+
+              <!-- Cake Tiers with Gold Crown & Velvet Noir Trim -->
+              <div class="cake-tier tier-crown">
+                <div class="golden-crown-mini">👑</div>
+              </div>
+              <div class="cake-tier tier-body"></div>
+              <div class="cake-tier tier-foundation"></div>
+              <div class="cake-gold-pedestal"></div>
+            </div>
+
+            <!-- Blow Button Under Center Cake -->
+            <div class="center-blow-pod">
+              <button class="blackpink-btn secondary-neon sfx-trigger magnetic-btn btn-with-peeker" id="blow-candles-btn">
+                <div class="btn-kitty-peeker">
+                  <img src="cats/cute-heart-cat.png" alt="Heart Kitty" class="peeker-sticker">
+                  <span class="peeker-bubble">Make a wish, Hope! 🫶✨</span>
+                </div>
+                <span>Blow Out The Birthday Candles 🎂💨</span>
+              </button>
+
+              <div id="level-1-gate" class="gate-reveal hidden">
+                <div class="gate-banner">
+                  <div class="gate-star">✨</div>
+                  <p>Your birthday wish has been woven into the stars! Let the music play...</p>
+                </div>
+                <button class="blackpink-btn primary-neon sfx-trigger magnetic-btn btn-with-peeker" id="proceed-to-level-2">
+                  <div class="btn-kitty-peeker">
+                    <img src="cats/cute-cap-cat.png" alt="Cool Cap Kitty" class="peeker-sticker">
+                    <span class="peeker-bubble">Our song awaits! 😉🎧</span>
+                  </div>
+                  <span>Listen To Still With You 🎧➔</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Flank: Reaction Kittens -->
+          <div class="act-flank-card right-flank">
+            <div class="flank-inner">
+              <div class="cat-reaction-corner">
+                <img src="cats/cute-bouquet-cat.png" alt="Bouquet Kitty" class="cat-local-avatar cute-sticker-photo">
+                <div class="meme-whisper">"Tulips for Hope! 🌷"</div>
+              </div>
+              <div class="cat-reaction-corner">
+                <img src="cats/cute-heart-cat.png" alt="Heart Paws Kitty" class="cat-local-avatar cute-sticker-photo">
+                <div class="meme-whisper">"Heart paws for Hope! 🫶"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LEVEL 2: OUR SONG (STILL WITH YOU) ================= -->
+    <section id="level-2" class="level-card-stage">
+      <div class="blackpink-chamber tilt-card" data-tilt>
+        <div class="card-ornament top-ornament">✦ ✧ ✦</div>
+        <span class="stage-tag">ACT II • OUR SONG</span>
+        <h2 class="stage-title cinematic-title" data-reveal>Still With You — <span class="neon-pink-text">Jung Kook</span> 🎧🌸</h2>
+        <p class="stage-sub cinematic-fade" data-reveal>Custom Noir & Neon Pink Spotify VIP Player with full vocal audio immersion.</p>
+
+        <!-- NOIR PINK SPOTIFY COMPONENT -->
+        <div class="spotify-pink-card" id="spotify-pink-card">
+          
+          <div class="spotify-top-brand">
+            <div class="brand-badge">
+              <svg class="sp-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.485 17.307c-.216.353-.674.464-1.026.249-2.813-1.718-6.355-2.106-10.528-1.152-.401.092-.799-.16-.891-.561-.092-.401.16-.799.561-.891 4.568-1.044 8.49-.607 11.636 1.328.353.216.464.674.248 1.027zm1.464-3.259c-.272.442-.85.583-1.292.311-3.219-1.979-8.127-2.551-11.936-1.394-.497.151-1.025-.133-1.176-.63-.151-.497.133-1.025.63-1.176 4.358-1.324 9.776-.682 13.463 1.584.442.271.583.85.311 1.292zm.126-3.41c-3.86-2.292-10.228-2.503-13.896-1.389-.59.18-1.218-.16-1.398-.75-.18-.59.16-1.218.75-1.398 4.221-1.282 11.248-1.037 15.688 1.597.531.315.704 1.002.389 1.533-.315.531-1.002.704-1.533.389z"/>
+              </svg>
+              <span>Spotify Black & Pink VIP • Playing For Hope</span>
+            </div>
+            <div class="live-signal-meter">
+              <span class="sig-bar"></span>
+              <span class="sig-bar"></span>
+              <span class="sig-bar"></span>
+              <span class="sig-bar"></span>
+            </div>
+          </div>
+
+          <!-- Main track display -->
+          <div class="spotify-track-body">
+            <!-- Album Artwork with spinning vinyl disc -->
+            <div class="album-cover-pod vinyl-spin-container" id="vinyl-disc">
+              <img src="still-with-you-cover.webp" alt="Still With You Official Cover" class="album-art-img" id="album-art" onerror="this.src='cats/cat-jam.gif'">
+              <div class="vinyl-grooves-overlay"></div>
+              <div class="album-center-hole"></div>
+              <div class="album-cover-overlay">
+                <span class="album-cat-badge" id="album-status-badge">🐱 READY TO VIBE</span>
+              </div>
+              <div class="floating-notes-pod" id="floating-notes"></div>
+            </div>
+
+            <!-- Track Metadata -->
+            <div class="spotify-meta-pod">
+              <div class="meta-row">
+                <div class="meta-titles">
+                  <h3 class="track-name">Still With You</h3>
+                  <p class="track-artist">Jung Kook • BTS</p>
+                  <span class="track-release">Black & Pink Edition • For Hope</span>
+                </div>
+                <button class="spotify-heart-btn active sfx-trigger" id="spotify-heart" title="Saved to favorites">
+                  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Minimalist Luxury Scrubber (Reference Style) -->
+              <div class="playback-scrubber-pod">
+                <div class="scrub-bar-track" id="scrubber-track">
+                  <div class="scrub-bar-fill" id="scrubber-fill"></div>
+                  <div class="scrub-bar-thumb" id="scrubber-thumb"></div>
+                </div>
+                <div class="scrub-times-row">
+                  <span class="scrub-time-label" id="current-time-label">0:00</span>
+                  <span class="scrub-time-label" id="duration-label">3:59</span>
+                </div>
+              </div>
+
+              <!-- Horizontal Centered Controls Deck (Reference Style) -->
+              <div class="spotify-controls-deck" id="spotify-controls-deck">
+                <button class="sp-ctrl-btn sfx-trigger" id="shuffle-btn" title="Shuffle (Click for cat spin)">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+                </button>
+                <button class="sp-ctrl-btn sfx-trigger" id="prev-btn" title="Previous / Restart Track">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button class="sp-play-giant sfx-trigger pulse-hover magnetic-btn" id="main-play-btn" title="Play / Pause Vocal Audio">
+                  <div class="play-inner-icon" id="play-icon-shape">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </button>
+                <button class="sp-ctrl-btn sfx-trigger" id="next-btn" title="Skip Forward 15s">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                </button>
+                <button class="sp-ctrl-btn active sfx-trigger" id="repeat-btn" title="Repeat Mode Active">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+                </button>
+              </div>
+
+              <!-- Interactive Hope's Cat Band & Vibe Crew -->
+              <div class="cat-vibe-crew-pod">
+                <span class="vibe-crew-title">🐾 Hope's Cat Vibe Crew: Tap us to jam!</span>
+                <div class="vibe-crew-row">
+                  <button class="vibe-cat-item sfx-trigger" data-vibe="jam" title="DJ Cat Jam • Tap for DJ scratch!">
+                    <img src="cats/cat-jam.gif" alt="Cat Jam" class="vibe-cat-img">
+                    <span class="vibe-cat-label">DJ Jam</span>
+                  </button>
+                  <button class="vibe-cat-item sfx-trigger" data-vibe="bongo" title="Bongo Cat • Tap for drum solo!">
+                    <img src="cats/bongo-cat.gif" alt="Bongo Cat" class="vibe-cat-img">
+                    <span class="vibe-cat-label">Bongo Drum</span>
+                  </button>
+                  <button class="vibe-cat-item sfx-trigger" data-vibe="bouquet" title="Tulip Cat • Tap for petals!">
+                    <img src="cats/cute-bouquet-cat.png" alt="Tulip Cat" class="vibe-cat-img">
+                    <span class="vibe-cat-label">Tulip Cheer</span>
+                  </button>
+                  <button class="vibe-cat-item sfx-trigger" data-vibe="heart" title="Heart Paws • Tap for love cascade!">
+                    <img src="cats/cute-heart-cat.png" alt="Heart Cat" class="vibe-cat-img">
+                    <span class="vibe-cat-label">Heart Paws</span>
+                  </button>
+                  <button class="vibe-cat-item sfx-trigger" data-vibe="smile" title="Sunshine Cat • Tap for fanfare!">
+                    <img src="cats/cute-smile-cat.png" alt="Sunshine Cat" class="vibe-cat-img">
+                    <span class="vibe-cat-label">Sunshine</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Bottom Volume & Rain Vibe slider -->
+              <div class="spotify-bottom-bar">
+                <div class="volume-control-pod">
+                  <button class="vol-icon-btn sfx-trigger" id="vol-mute-btn" title="Volume">🔊</button>
+                  <input type="range" min="0" max="100" value="85" class="spotify-pink-slider" id="volume-slider">
+                </div>
+                <button class="rain-sound-btn sfx-trigger" id="toggle-rain-ambience">
+                  🌧️ Rain FX: On
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Audio Player element with Jung Kook's actual vocals -->
+          <audio id="main-audio-player" preload="metadata">
+            <source src="still-with-you.m4a" type="audio/mp4">
+            <source src="still-with-you.webm" type="audio/webm">
+          </audio>
+
+          <!-- Direct Spotify Embed Widget Option -->
+          <div class="spotify-embed-wrapper">
+            <div class="embed-expand-bar">
+              <span>🎧 Want official Spotify embed? Click to toggle</span>
+              <button class="btn-micro sfx-trigger" id="toggle-official-embed">Toggle Spotify Embed</button>
+            </div>
+            <div id="official-spotify-frame-container" class="hidden">
+              <iframe 
+                id="spotify-iframe"
+                style="border-radius:12px; margin-top:12px;" 
+                src="https://open.spotify.com/embed/track/2tTmW732pYjgQIJfYdG15W?utm_source=generator&theme=0" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+
+          <!-- ================= CLEAN "SING WITH ME, HOPE!" PROMPT BANNER ================= -->
+          <div class="sing-with-me-banner hidden" id="sing-with-me-banner">
+            <div class="sing-banner-inner">
+              <span class="sing-banner-sparkle">✨</span>
+              <span class="sing-banner-text">Sing with me, Hope! 🎤💜</span>
+              <span class="sing-banner-sparkle">✨</span>
+            </div>
+          </div>
+
+          <!-- Synchronized Korean & English Lyrics (Interactive Karaoke Stream) -->
+          <div class="lyrics-card-pink">
+            <div class="lyrics-header-sp">
+              <span class="kr-pill">정국 (Jung Kook) • Live Lyrics</span>
+              <span class="now-singing" id="karaoke-status-sub">💜 Click any line to jump</span>
+            </div>
+            <div class="lyrics-stream" id="lyrics-stream">
+              <div class="lyric-line-box active-line" data-start="15" data-end="25">
+                <p class="kr-text"><span class="kword">날</span> <span class="kword">스치는</span> <span class="kword">그대의</span> <span class="kword">옅은</span> <span class="kword">그</span> <span class="kword">목소리</span></p>
+                <p class="en-text">That faint voice of yours that softly grazed me</p>
+              </div>
+              <div class="lyric-line-box" data-start="25" data-end="38">
+                <p class="kr-text"><span class="kword">내</span> <span class="kword">이름을</span> <span class="kword">한</span> <span class="kword">번만</span> <span class="kword">더</span> <span class="kword">불러주세요</span></p>
+                <p class="en-text">Please call my name just one more time</p>
+              </div>
+              <div class="lyric-line-box" data-start="38" data-end="49">
+                <p class="kr-text"><span class="kword">얼어붙은</span> <span class="kword">노을</span> <span class="kword">아래</span> <span class="kword">멈춰</span> <span class="kword">서</span> <span class="kword">있지만</span></p>
+                <p class="en-text">Though I stand frozen beneath the icy sunset</p>
+              </div>
+              <div class="lyric-line-box" data-start="49" data-end="62">
+                <p class="kr-text"><span class="kword">그대</span> <span class="kword">향해</span> <span class="kword">한</span> <span class="kword">걸음씩</span> <span class="kword">걸어가볼래요</span></p>
+                <p class="en-text">I want to take a step toward you, little by little</p>
+              </div>
+              <div class="lyric-line-box highlight" data-start="62" data-end="76">
+                <p class="kr-text"><span class="kword">Still</span> <span class="kword">With</span> <span class="kword">You...</span> 🌧️💜</p>
+                <p class="en-text">Forever walking right beside you, Hope.</p>
+                <p class="my-note">"Every drop of rain carries my love to you."</p>
+              </div>
+              <div class="lyric-line-box" data-start="76" data-end="89">
+                <p class="kr-text"><span class="kword">어두운</span> <span class="kword">방</span> <span class="kword">조명</span> <span class="kword">하나</span> <span class="kword">없이</span> <span class="kword">익숙해지면</span> <span class="kword">안</span> <span class="kword">되는데</span></p>
+                <p class="en-text">In a dark room without a single light, I shouldn't grow used to this</p>
+              </div>
+              <div class="lyric-line-box highlight" data-start="89" data-end="103">
+                <p class="kr-text"><span class="kword">비가</span> <span class="kword">내리는</span> <span class="kword">밤에도,</span> <span class="kword">안개가</span> <span class="kword">걷힐</span> <span class="kword">때도</span></p>
+                <p class="en-text">Even in the rainy night, even when the fog clears away...</p>
+                <p class="my-note">"My heart will always find its way back to Hope."</p>
+              </div>
+              <div class="lyric-line-box" data-start="103" data-end="125">
+                <p class="kr-text"><span class="kword">젖은</span> <span class="kword">발로</span> <span class="kword">달려갈게,</span> <span class="kword">그땐</span> <span class="kword">날</span> <span class="kword">안아줘</span></p>
+                <p class="en-text">I'll run to you with soaked feet, just hold me tight then</p>
+              </div>
+              <div class="lyric-line-box" data-start="125" data-end="155">
+                <p class="kr-text"><span class="kword">저</span> <span class="kword">달이</span> <span class="kword">외로워</span> <span class="kword">보여서,</span> <span class="kword">밤하늘에</span> <span class="kword">환하게</span> <span class="kword">울고</span> <span class="kword">있는</span> <span class="kword">것</span> <span class="kword">같아서</span></p>
+                <p class="en-text">Because the moon looked so lonely, brightly weeping in the night sky...</p>
+              </div>
+              <div class="lyric-line-box highlight" data-start="155" data-end="239">
+                <p class="kr-text"><span class="kword">발맞춰</span> <span class="kword">걸어볼래요,</span> <span class="kword">그대와</span> <span class="kword">함께</span> 🌸</p>
+                <p class="en-text">I will always walk in rhythm with you, forever and ever.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        
+
+        <div class="stage-controls">
+          <button class="blackpink-btn primary-neon sfx-trigger magnetic-btn btn-with-peeker" id="proceed-to-level-3">
+            <div class="btn-kitty-peeker">
+              <img src="cats/sushi.jpg" alt="Sushi" class="peeker-sticker">
+              <span class="peeker-bubble">Meet baby Sushi! 🍣🐾</span>
+            </div>
+            <span>Meet Our Precious Kitten Sushi 🍣➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LEVEL 3: THE ROYAL LETTER (MY HOPE ONLY HERE) ================= -->
+        <!-- ================= LEVEL 3: OUR KITTEN SUSHI (INTERACTIVE PETTING SANCTUARY) ================= -->
+    <section id="level-3" class="level-card-stage">
+      <div class="blackpink-chamber tilt-card" data-tilt>
+        <div class="card-ornament top-ornament">✦ ✧ ✦</div>
+        <span class="stage-tag">ACT III • OUR LITTLE ANGEL SUSHI 🍣🐾</span>
+        <h2 class="stage-title cinematic-title" data-reveal>Meet Our Baby, <span class="neon-pink-text">Sushi</span> 🐾</h2>
+        <p class="stage-sub cinematic-fade" data-reveal>The sweetest, coziest kitten in the entire universe. Pet Sushi, give treats, and feel the love!</p>
+
+        <!-- Sushi Petting Sanctuary Shrine -->
+                <!-- Sushi Petting Sanctuary Side-Flank Layout -->
+        <div class="act-widescreen-grid sushi-grid">
+          <!-- Left Flank: Sleeping Sushi Photo & Purr Glow -->
+          <div class="act-flank-card sushi-photo-flank">
+            <div class="sushi-photo-wrapper" id="sushi-interactive-card" title="Click or tap Sushi to pet!">
+              <img src="cats/sushi.jpg" alt="Our Kitten Sushi Sleeping" class="sushi-hero-img" id="sushi-main-photo">
+              <div class="sushi-purr-ripples" id="sushi-purr-ripples"></div>
+            </div>
+            <div class="sushi-status-bubble" id="sushi-action-tag">Zzz... Sweet Dreams 💤</div>
+          </div>
+
+          <!-- Right Flank: Happiness Meter & Interactive Care Buttons -->
+                    <!-- Center Flank: Hope & Kitten Sushi Duo ("Sushi Says Happy Birthday!") -->
+          <div class="act-flank-card sushi-hope-flank sfx-trigger" id="hope-sushi-card" title="Click to hear Sushi's birthday message for Hope!">
+            <div class="hope-sushi-frame">
+              <img src="cats/hope-and-sushi.jpg" alt="Hope and Kitten Sushi" class="hope-sushi-photo" id="hope-sushi-img">
+              <div class="photo-glow-halo"></div>
+              <span class="duo-tag">🐾 BEST BUDS</span>
+            </div>
+            <div class="sushi-bday-speech" id="sushi-bday-speech">
+              "Sushi says: Happy Birthday, Hope! 🍣🐾🎂"
+            </div>
+            <button class="blackpink-btn secondary-neon sfx-trigger sushi-bday-btn" id="sushi-tell-bday-btn">
+              <span>🎂 Sushi: Happy Birthday! 🐾</span>
+            </button>
+          </div>
+
+          <div class="act-flank-card sushi-controls-flank">
+            <div class="sushi-meter-box">
+              <div class="meter-label-row">
+                <span class="meter-title">🍣 Sushi's Happiness Meter</span>
+                <span class="meter-percent" id="sushi-happiness-val">100% (Purring Loudly)</span>
+              </div>
+              <div class="meter-track">
+                <div class="meter-fill" id="sushi-meter-fill"></div>
+              </div>
+            </div>
+
+            <!-- Petting & Care Controls -->
+            <div class="sushi-actions-pod">
+              <button class="blackpink-btn secondary-neon sfx-trigger sushi-interact-btn" id="pet-sushi-btn">
+                <span>🐾 Pet Sushi (Grrr Purr)</span>
+              </button>
+              <button class="blackpink-btn secondary-neon sfx-trigger sushi-interact-btn" id="treat-sushi-btn">
+                <span>🍣 Give A Treat</span>
+              </button>
+              <button class="blackpink-btn secondary-neon sfx-trigger sushi-interact-btn" id="pose-sushi-btn">
+                <span>🔄 Switch Sleeping Pose</span>
+              </button>
+              <button class="blackpink-btn secondary-neon sfx-trigger sushi-interact-btn" id="cuddle-sushi-btn">
+                <span>💖 Warm Snuggles</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="stage-controls">
+          <button class="blackpink-btn primary-neon sfx-trigger magnetic-btn btn-with-peeker" id="proceed-to-level-4">
+            <div class="btn-kitty-peeker">
+              <img src="cats/sushi.jpg" alt="Sushi" class="peeker-sticker">
+              <span class="peeker-bubble">Love letter for Hope! 💌🐾</span>
+            </div>
+            <span>Read The Royal Confession Letter 💌➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+<section id="level-4" class="level-card-stage">
+      <div class="blackpink-chamber tilt-card" data-tilt>
+        <div class="card-ornament top-ornament">✦ ✧ ✦</div>
+        <span class="stage-tag">ACT IV • THE ROYAL BIRTHDAY LETTER</span>
+        <h2 class="stage-title cinematic-title" data-reveal>From The Deepest Core Of My Heart 💌</h2>
+        <p class="stage-sub cinematic-fade" data-reveal>A letter written only for your eyes. Click the wax seal to break open the envelope.</p>
+
+                <!-- Wax Sealed Envelope with 3D Physics -->
+        <div class="envelope-chamber" id="envelope-chamber">
+          <div class="cat-letter-guard">
+            <img src="cats/cat-letter.jpg" alt="Cat delivering letter" class="guard-cat-img cat-local-avatar">
+            <span class="guard-caption">"Special royal delivery for Hope! 💌"</span>
+          </div>
+
+          <div class="regal-envelope envelope-3d" id="regal-envelope">
+            <div class="envelope-back-wall"></div>
+            <div class="envelope-letter-sheet" id="envelope-letter-peeker">
+              <span class="peeker-tag">ROYAL CONFESSION FOR HOPE 🌸</span>
+            </div>
+            <div class="envelope-side-flap left-flap"></div>
+            <div class="envelope-side-flap right-flap"></div>
+            <div class="envelope-base-pocket"></div>
+            <div class="envelope-top-flap" id="envelope-top-flap"></div>
+            <button class="wax-seal-button pulse-hover sfx-trigger btn-with-peeker" id="wax-seal-btn" title="Click to break seal and reveal confession">
+                <div class="btn-kitty-peeker seal-peeker">
+                  <img src="cats/cute-bouquet-cat.png" alt="Bouquet Kitty" class="peeker-sticker">
+                  <span class="peeker-bubble">Break seal! 🌷💖</span>
+                </div>
+                <div class="wax-seal-core">
+                  <div class="seal-inner-emblem">👑</div>
+                  <div class="seal-text-ring">HOPE • FOREVER</div>
+                </div>
+              </button>
+          </div>
+          <p class="seal-instructions">✦ Touch the royal wax seal to unlock the words written for you ✦</p>
+        </div>
+
+        <!-- Unfolded Royal Stationery Letter (EXACT "MY HOPE" EXCLUSIVE SPOT) -->
+        <article class="royal-stationery-letter hidden" id="royal-letter">
+          <div class="stationery-frame-noir parchment-texture">
+            <div class="corner-flourish top-left">❦</div>
+            <div class="corner-flourish top-right">❦</div>
+            <div class="corner-flourish bottom-left">❦</div>
+            <div class="corner-flourish bottom-right">❦</div>
+
+            <div class="letter-royal-header">
+              <div class="royal-emblem">🌸 👑 🌸</div>
+              <span class="royal-decree-tag">SEALED FOR HOPE • CONFIDENTIAL & ETERNAL</span>
+            </div>
+
+            <div class="letter-prose" id="letter-prose">
+              <!-- "MY HOPE" IS ONLY USED IN THIS SPECIFIC LETTER AS REQUESTED -->
+              <h2 class="letter-opener typewriter-title">Happy birthday my hope and i hope...</h2>
+
+              <p class="lead-prose typewriter-paragraph" data-para="1">
+                Happy birthday my hope and i hope that every step you take in this new chapter is blessed with boundless joy, peaceful nights, and dreams that unfold into reality. I hope you always remember how irreplaceable you are to me, how proud I am of the brilliant and compassionate woman you are, and how much light you bring into every corner of my life.
+              </p>
+
+              <p class="typewriter-paragraph" data-para="2">
+                You are my calm within the storm, my safe harbor, and the brightest part of my days. Just the sound of your laughter has the power to melt away every worry, and your gentle heart inspires me constantly to love deeper and be a better partner for you.
+              </p>
+
+              <p class="typewriter-paragraph" data-para="3">
+                I hope you never doubt your worth or how profoundly you are loved. On easy sunny days and on quiet rainy nights listening to our favorite songs, I promise to stand by your side, celebrate your victories, hold you when you are tired, and cheer for you with all that I have.
+              </p>
+
+              <p class="typewriter-paragraph" data-para="4">
+                Thank you for being my dream come true, my best friend, and my endless hope.
+              </p>
+
+              <div class="letter-signature-block">
+                <p class="closing-phrase">Forever and unconditionally yours,</p>
+                <p class="signature-script">With All My Love & Purrs 🐾💖</p>
+                <div class="golden-wax-stamp">👑 SEAL OF ETERNAL DEVOTION</div>
+              </div>
+            </div>
+
+            <div class="stationery-actions">
+              <button class="blackpink-btn primary-neon sfx-trigger magnetic-btn btn-with-peeker" id="proceed-to-level-5">
+                <div class="btn-kitty-peeker">
+                  <img src="cats/cute-smile-cat.png" alt="Sunshine Kitty" class="peeker-sticker">
+                  <span class="peeker-bubble">Coronation Time! 👑✨</span>
+                </div>
+                <span>Proceed To Royal Coronation 👑➔</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= LEVEL 4: THE CORONATION & ETERNAL LOVE ================= -->
+    <section id="level-5" class="level-card-stage">
+      <div class="blackpink-chamber finale-chamber tilt-card" data-tilt>
+        <div class="card-ornament top-ornament">✦ ✧ ✦</div>
+        <div class="coronation-crown">👑</div>
+        <span class="stage-tag">ACT V • THE CORONATION & ETERNAL LOVE</span>
+        <h2 class="stage-title cinematic-title" data-reveal>Long Live Birthday Queen <span class="neon-pink-text">Hope</span>! 💖</h2>
+        <p class="stage-sub cinematic-fade" data-reveal>Wishing you the absolute happiest birthday full of smiles, good vibes, and sweet moments!</p>
+
+        <!-- Celebration Portraits: Hope & Me (Fun, Light, Respectful) -->
+        <div class="coronation-stage-cats">
+          <div class="celebration-cat-avatar sfx-trigger" id="her-avatar-card">
+            <div class="avatar-photo-pod">
+              <img src="her.jpg" alt="Hope" class="coronation-cat-img user-portrait-img">
+            </div>
+            <div class="meme-whisper">"Hope looking amazing as always! ✨💖"</div>
+          </div>
+          <div class="celebration-cat-avatar sfx-trigger" id="me-avatar-card">
+            <div class="avatar-photo-pod">
+              <img src="me.jpg" alt="Me" class="coronation-cat-img user-portrait-img">
+            </div>
+            <div class="meme-whisper">"Cheering for Hope today! 🎉😊"</div>
+          </div>
+        </div>
+
+        <!-- Interactive Love & Hug Generator -->
+        <div class="coronation-hug-box">
+          <h3>Infinite Birthday Cuddles Meter</h3>
+          <div class="hug-counter-value" id="hug-display">1,000,000 💕</div>
+          <p class="hug-counter-sub">Click below to send more warmth & purrs!</p>
+          <button class="blackpink-btn primary-neon sfx-trigger pulse-hover magnetic-btn btn-with-peeker" id="boost-hugs-btn">
+            <div class="btn-kitty-peeker">
+              <img src="cats/cute-heart-cat.png" alt="Heart Kitty" class="peeker-sticker">
+              <span class="peeker-bubble">Infinite cuddles! 🫶💕</span>
+            </div>
+            <span>Send Infinite Cuddles To Hope 💖</span>
+          </button>
+        </div>
+
+        <div class="coronation-blessing-ribbon">
+          <span>🌸 Boundless Joy • Peaceful Days • Sweet Laughter • All Dreams For Hope 🌸</span>
+        </div>
+        <div class="finale-actions">
+          <button class="blackpink-btn secondary-neon sfx-trigger magnetic-btn btn-with-peeker" id="replay-journey-btn">
+            <div class="btn-kitty-peeker">
+              <img src="cats/popcat.gif" alt="Pop Cat" class="peeker-sticker">
+              <span class="peeker-bubble">Replay again! 🎈✨</span>
+            </div>
+            <span>Replay The Entire Royal Journey ↺</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <canvas id="fireworks-canvas"></canvas>
+
+  <script src="script.js"></script>
+  <!-- ================= LUXURY BOUQUET PRESENTATION MODAL (FROM ME TO HOPE) ================= -->
+  <div class="bouquet-modal-overlay hidden" id="bouquet-modal">
+    <div class="bouquet-modal-chamber">
+      <button class="modal-close-btn" id="close-bouquet-modal" title="Close">✕</button>
+      <div class="bouquet-card-inner">
+        <span class="modal-tag">💐 SPECIAL BIRTHDAY DELIVERY • FROM ME TO HOPE 🌸</span>
+        
+        <!-- From Me Presentation Showcase -->
+        <div class="bouquet-giver-badge">
+          <div class="giver-avatar-frame">
+            <img src="me.jpg" alt="Me" class="giver-avatar-img">
+            <span class="giver-tag">FROM ME 🧢</span>
+          </div>
+          <div class="giver-speech-box">
+            <h4 class="giver-speech-title">"Here are your flowers, Hope! 🌷💜"</h4>
+            <p class="giver-speech-text">
+              I handcrafted this special bouquet of Jung Kook & pink tulips just for your birthday. Wishing you the happiest and sweetest day!
+            </p>
+          </div>
+        </div>
+
+        <div class="bouquet-photo-wrapper">
+          <img src="special-bouquet.png" alt="Jung Kook Photo Bouquet for Hope" class="special-bouquet-img" id="special-bouquet-img">
+          <div class="bouquet-sparkles-layer"></div>
+        </div>
+
+        <!-- Controlled Transition Button (Pass With Button Click) -->
+        <div class="bouquet-action-row">
+          <button class="blackpink-btn primary-neon sfx-trigger pulse-hover magnetic-btn" id="accept-flowers-btn">
+            <span>🌸 Take Flowers & Meet Our Kitten Sushi 🍣➔</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
